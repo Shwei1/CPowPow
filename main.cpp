@@ -1,15 +1,27 @@
-#include <iostream>
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-int main(){
+#include <iostream>
 
-//    std::cout << "gsajdhajsd" << std::endl;
-    glfwInit();
+int main(){
+    
+    if (!glfwInit()) {
+        std::cerr << "Failed to initialize GLFW\n";
+        return -1;
+    }
+
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-    GLFWwindow* window = glfwCreateWindow(800, 600, "IvankaKekagit ", NULL, NULL);
+
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // for compatibility with legacy MacOS versions
+
+
+
+
+    GLFWwindow* window = glfwCreateWindow(800, 600, "Ivanka", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -17,6 +29,11 @@ int main(){
         return -1;
     }
     glfwMakeContextCurrent(window);
+
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+        std::cerr << "Failed to initialize GLAD\n";
+        return -1;
+    }
 
     glViewport(0, 0, 800, 600);
 
